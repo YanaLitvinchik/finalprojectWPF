@@ -1,0 +1,62 @@
+﻿<Window x:Class="ProjectWPF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ProjectWPF"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="600" Width="1000">
+    <Window.DataContext>
+        <local:ViewModel></local:ViewModel>
+    </Window.DataContext>
+    <Window.Resources>
+        <ResourceDictionary>
+            <Style x:Key="TxB" TargetType="TextBlock">
+                <Setter Property="TextAlignment" Value="Center"/>
+                <Setter Property="FontSize" Value="30"/>
+            </Style>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10*"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <ListBox SelectedItem="{Binding SelectedAlcohol}" ItemsSource="{Binding AlcoholV}"  >
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <!--<StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Left"/>-->
+                    <WrapPanel Width="{Binding (FrameworkElement.ActualWidth), 
+                     RelativeSource={RelativeSource AncestorType=ScrollContentPresenter}}"
+                     ItemWidth="{Binding (ListView.View).ItemWidth, 
+                     RelativeSource={RelativeSource AncestorType=ListView}}"
+                     MinWidth="{Binding ItemWidth, RelativeSource={RelativeSource Self}}"
+                     ItemHeight="{Binding (ListView.View).ItemHeight, 
+                     RelativeSource={RelativeSource AncestorType=ListView}}" />
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+            <ListBox.ItemTemplate >
+                <DataTemplate>
+                    <StackPanel>
+                        <Image Grid.Row="1" Height="200" Width="150" Source="{Binding Image}"></Image>
+                        <TextBlock Style="{StaticResource TxB}" Text="{Binding Name}"></TextBlock>
+                        <TextBlock Style="{StaticResource TxB}" Text="{Binding Type}" ></TextBlock>
+                        <TextBlock Style="{StaticResource TxB}" Text="{Binding Manufacturer}" ></TextBlock>
+                        <TextBlock Style="{StaticResource TxB}" Text="{Binding Year}"></TextBlock>
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <StackPanel Grid.Column="1" >
+            <TextBox Margin="10" FontWeight="Bold" FontSize="18" Text="{Binding SelectedAlcohol.Name, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+            <TextBox Margin="10" FontWeight="Bold" FontSize="18" Text="{Binding SelectedAlcohol.Manufacturer, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+            <TextBox Margin="10" FontWeight="Bold" FontSize="18" Text="{Binding SelectedAlcohol.Type, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+            <TextBox Margin="10" FontWeight="Bold" FontSize="18" Text="{Binding SelectedAlcohol.Year, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+
+        </StackPanel>
+    </Grid>
+</Window>
