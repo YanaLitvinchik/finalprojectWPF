@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ProjectWPF"
         mc:Ignorable="d"
-        Title="MainWindow" Height="600" Width="1000">
+        Title="MainWindow" Height="600" Width="1100">
     <Window.DataContext>
         <local:ViewModel></local:ViewModel>
     </Window.DataContext>
@@ -51,12 +51,31 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <StackPanel Grid.Column="1" >
-            <TextBox Margin="10" FontWeight="Bold" FontSize="18" Text="{Binding SelectedAlcohol.Name, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-            <TextBox Margin="10" FontWeight="Bold" FontSize="18" Text="{Binding SelectedAlcohol.Manufacturer, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-            <TextBox Margin="10" FontWeight="Bold" FontSize="18" Text="{Binding SelectedAlcohol.Type, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-            <TextBox Margin="10" FontWeight="Bold" FontSize="18" Text="{Binding SelectedAlcohol.Year, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-
-        </StackPanel>
+        <Grid Grid.Column="1" >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="50"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Row="2" Grid.Column="0">Name:</Label>
+            <TextBox Grid.Row="2" Grid.Column="1" Width="250" Margin="10" FontWeight="Bold" FontSize="18" Text="{Binding SelectedAlcohol.Name, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+            <Label Grid.Row="3" Grid.Column="0">Manufacturer:</Label>
+            <TextBox Grid.Row="3" Grid.Column="1" Margin="10" FontWeight="Bold" FontSize="18" Text="{Binding SelectedAlcohol.Manufacturer, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+            <Label Grid.Row="4" Grid.Column="0">Type:</Label>
+            <TextBox Grid.Row="4" Grid.Column="1" Margin="10" FontWeight="Bold" FontSize="18" Text="{Binding SelectedAlcohol.Type, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+            <Label Grid.Row="5" Grid.Column="0">Year:</Label>
+            <TextBox Grid.Row="5" Grid.Column="1" Margin="10" FontWeight="Bold" FontSize="18" Text="{Binding SelectedAlcohol.Year, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+            <Button Grid.Row="6" Grid.Column="1" Content="Add" FontSize="20" Margin="10"></Button>
+            <Button Grid.Row="7" Grid.Column="1" Content="Delete" FontSize="20" Margin="10"></Button>
+        </Grid>
     </Grid>
 </Window>

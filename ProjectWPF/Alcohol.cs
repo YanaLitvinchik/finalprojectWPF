@@ -1,32 +1,80 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace ProjectWPF
 {
-   public class Alcohol
+   public class Alcohol : INotifyPropertyChanged
     {
-        public string Image { get; set; }
-        public string Name { get; set; }
-        public string Type { get; set; }
-        public string Manufacturer { get; set; }
-        public int Year { get; set; }
+        private string image;
+        private string name;
+        private string manufacturer;
+        private string year;
+        private string type;
 
+        public string Image
+        {
+            get { return image; }
+            set
+            {
+                image = value;
+                Notify();
+            }
+        }
+        public string Name
+        {
+            get { return name; }
+            set
+            {
+                name = value;
+                Notify();
+            }
+        }
+        public string Type
+        {
+            get { return type; }
+            set
+            {
+                type = value;
+                Notify();
+            }
+        }
+        public string Manufacturer
+        {
+            get { return manufacturer; }
+            set
+            {
+                manufacturer = value;
+                Notify();
+            }
+        }
+        public string  Year
+        {
+            get { return year; }
+            set
+            {
+                year = value;
+                Notify();
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private void Notify([CallerMemberName] string prop = "")
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
+        }
         public static ObservableCollection<Alcohol> GetAll()
         {
             return new ObservableCollection<Alcohol>
             {
-                new Alcohol { Image = "../Image/default.jpeg",  Name = "Gibson's",Type = "Gin", Manufacturer ="London", Year = 1990},
-                new Alcohol { Image = "../Image/default.jpeg", Name = "Yana's",Type = "Bear", Manufacturer ="Kyiv",  Year = 2018},
-                new Alcohol { Image = "../Image/default.jpeg", Name = "Yana's",Type = "Bear", Manufacturer ="Kyiv",  Year = 2018},
-                new Alcohol { Image = "../Image/default.jpeg", Name = "Yana's",Type = "Bear", Manufacturer ="Kyiv",  Year = 2018},
-                new Alcohol { Image = "../Image/default.jpeg", Name = "Yana's",Type = "Bear", Manufacturer ="Kyiv",  Year = 2018},
-                new Alcohol { Image = "../Image/default.jpeg", Name = "Yana's",Type = "Bear", Manufacturer ="Kyiv",  Year = 2018}
+                new Alcohol { Image = "../Image/default.jpeg",  Name = "Gibson's",Type = "Gin", Manufacturer ="London", Year = "1990"}
             };
-        }
-
+        }        
     }
 }
