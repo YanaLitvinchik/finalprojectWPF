@@ -73,7 +73,7 @@ namespace ProjectWPF
         {
             return new ObservableCollection<Alcohol>
             {
-                new Alcohol { Image = "../Image/default.jpeg",  Name = "Gibson's",Type = "Gin", Manufacturer ="London", Year = "1990"}
+                new Alcohol { Image = "../Image/gibsons.jpg",  Name = "Gibson's",Type = "Gin", Manufacturer ="London", Year = "1990"}
             };
         }        
     }
