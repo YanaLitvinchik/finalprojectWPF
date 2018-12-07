@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ProjectWPF"
         mc:Ignorable="d"
-        Title="MainWindow" MinHeight="900" MinWidth="1100">
+        Title="MainWindow" MinHeight="400" MinWidth="800" Style="{DynamicResource WindowStyle}">>
     <Window.DataContext>
         <local:ViewModel></local:ViewModel>
     </Window.DataContext>
@@ -20,10 +20,10 @@
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="2*"></ColumnDefinition>
-            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition Width="1*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="10*"></RowDefinition>
+            <RowDefinition Height="5*"></RowDefinition>
         </Grid.RowDefinitions>
 
         <ListBox SelectedItem="{Binding SelectedAlcohol}" ItemsSource="{Binding AlcoholV}"  >
@@ -42,7 +42,7 @@
             <ListBox.ItemTemplate >
                 <DataTemplate>
                     <StackPanel>
-                        <Image Grid.Row="1" Height="200" Width="150" Source="{Binding Image}"></Image>
+                        <Image Grid.Row="1"  Height ="auto" MaxHeight="200" MaxWidth="150" Source="{Binding Image}"></Image>
                         <TextBlock Style="{StaticResource TxB}" Text="{Binding Name}"></TextBlock>
                         <TextBlock Style="{StaticResource TxB}" Text="{Binding Type}" ></TextBlock>
                         <TextBlock Style="{StaticResource TxB}" Text="{Binding Manufacturer}" ></TextBlock>
@@ -55,19 +55,20 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="20"/>
-                <RowDefinition Height="50"/>
-                <RowDefinition Height="50"/>
-                <RowDefinition Height="50"/>
-                <RowDefinition Height="50"/>
-                <RowDefinition Height="50"/>
-                <RowDefinition Height="50"/>
-                <RowDefinition Height="50"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="100"/>
+                <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="auto" />
                 <ColumnDefinition Width="auto"/>
             </Grid.ColumnDefinitions>
-            <Image Margin="0 5" Grid.Row="0" Grid.ColumnSpan="2" Width="auto" Height="500" Source="{Binding Path=SelectedAlcohol.Image, UpdateSourceTrigger=PropertyChanged}"></Image>
+            <Image Margin="0 5" Grid.Row="0" Grid.ColumnSpan="2" Width="auto" Height="auto" MaxHeight="200" Source="{Binding Path=SelectedAlcohol.Image, UpdateSourceTrigger=PropertyChanged}"></Image>
             <Button Grid.Row="1" Grid.ColumnSpan="2" Width="120" Height="20" Command="{Binding OpenFolder}">Change image</Button>
             <Label Grid.Row="2" Grid.Column="0">Name:</Label>
             <TextBox Grid.Row="2" Grid.Column="1" Width="250" Margin="10" FontWeight="Bold" FontSize="18" Text="{Binding SelectedAlcohol.Name, UpdateSourceTrigger=PropertyChanged}"></TextBox>
@@ -79,6 +80,15 @@
             <TextBox Grid.Row="5" Grid.Column="1" Margin="10" FontWeight="Bold" FontSize="18" Text="{Binding SelectedAlcohol.Year, UpdateSourceTrigger=PropertyChanged}"></TextBox>
             <Button Command="{Binding Add}" Grid.Row="6" Grid.Column="1" Content="Add" FontSize="20" Margin="10"></Button>
             <Button Command="{Binding Delete}" Grid.Row="7" Grid.Column="1" Content="Delete" FontSize="20" Margin="10"></Button>
+            <Expander Header="Sort by" Grid.Row="6" Grid.RowSpan="2" Grid.Column="0" Margin="5" Width="auto" Height="auto">
+                <StackPanel Height="auto">
+                <RadioButton Command="{Binding Sort}" CommandParameter="Name">Name</RadioButton>
+                <RadioButton Command="{Binding Sort}" CommandParameter="Manufacturer">Manufacturer</RadioButton>
+                <RadioButton Command="{Binding Sort}" CommandParameter="Type">Type</RadioButton>
+                <RadioButton Command="{Binding Sort}" CommandParameter="Year">Year</RadioButton>
+                </StackPanel>
+            </Expander>
+           
         </Grid>
     </Grid>
 </Window>

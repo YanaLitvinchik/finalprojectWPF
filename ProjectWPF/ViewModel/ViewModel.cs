@@ -73,14 +73,24 @@ namespace ProjectWPF
         }
         private void AddAlcohol()
         {
-            AlcoholV.Add(new Alcohol()
+            //SqliteDataAccess.SaveItem
+            //AlcoholV.Add(new Alcohol()
+            //{
+            //    Image = "../Image/gibsons.jpg",
+            //    Name = "Name",
+            //    Type = "Type",
+            //    Manufacturer = "Manufacturer",
+            //    Year = "Year"
+            //});
+            var a = new Alcohol()
             {
                 Image = "../Image/gibsons.jpg",
-                Name = "Unknown",
-                Type = "Unknown",
-                Manufacturer = "Unknown",
-                Year = "Unknown"
-            });
+                Name = "Name",
+                Type = "Type",
+                Manufacturer = "Manufacturer",
+                Year = "Year"
+            };
+            SqliteDataAccess.SaveItem(a);
         }
         private RelayCommand openFolder;
         public ICommand OpenFolder
@@ -91,7 +101,6 @@ namespace ProjectWPF
                   (openFolder = new RelayCommand(x => ChangeImage(), y => SelectedAlcohol != null));
             }
         }
-        #endregion
 
         private void ChangeImage()
         {
@@ -104,5 +113,33 @@ namespace ProjectWPF
             if (f.ShowDialog() == true)
                 SelectedAlcohol.Image = f.FileName;
         }
+        private RelayCommand sort;
+        public ICommand Sort
+        {
+            get { return sort ?? (sort = new RelayCommand(SortList)); }
+        }
+        #endregion
+
+        #region sorting
+
+        private void SortList(object obj)
+        {
+            switch (obj.ToString())
+            {
+                case "Name":
+                    AlcoholV = new ObservableCollection<Alcohol>(AlcoholV.OrderBy(x => x.Name));
+                    break;
+                case "Manufacturer":
+                    AlcoholV = new ObservableCollection<Alcohol>(AlcoholV.OrderBy(x => x.Manufacturer));
+                    break;
+                case "Type":
+                    AlcoholV = new ObservableCollection<Alcohol>(AlcoholV.OrderBy(x => x.Type));
+                    break;
+                case "Year":
+                    AlcoholV = new ObservableCollection<Alcohol>(AlcoholV.OrderBy(x => x.Year));
+                    break;
+            }
+        }
+        #endregion
     }
 }
