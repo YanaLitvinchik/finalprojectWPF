@@ -16,6 +16,7 @@ namespace ProjectWPF
         private string manufacturer;
         private string year;
         private string type;
+        public int Id { get; set; }
 
         public string Image
         {
@@ -71,14 +72,7 @@ namespace ProjectWPF
         }
         public static ObservableCollection<Alcohol> GetAll()
         {
-            //return new ObservableCollection<Alcohol>
-            //{
-            //    new Alcohol { Image = "../Image/gibsons.jpg",  Name = "Gibson's",Type = "Gin", Manufacturer ="London", Year = "2018"},
-            //    new Alcohol { Image = "../Image/jw.png",  Name = "Alpha",Type = "Viski", Manufacturer ="Riga", Year = "1990"},
-            //    new Alcohol { Image = "../Image/vn.png",  Name = "Victor",Type = "Vine", Manufacturer ="Lima", Year = "2000"}
-            //};
             return new ObservableCollection<Alcohol>(SqliteDataAccess.LoadAlcohol());
-            
         }
     }
 }

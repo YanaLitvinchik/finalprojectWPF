@@ -88,11 +88,11 @@
     </Compile>
     <Compile Include="Data\SqliteDataAccess.cs" />
     <Compile Include="ViewModel\ViewModel.cs" />
-    <Page Include="Themes\ThemeFirst.xaml">
+    <Page Include="light.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Themes\ThemeSecond.xaml">
+    <Page Include="dark.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -132,7 +132,9 @@
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Themes\" />
+  </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.6.1">
       <Visible>False</Visible>

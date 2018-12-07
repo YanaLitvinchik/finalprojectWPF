@@ -14,6 +14,10 @@ namespace ProjectWPF
 {
     class ViewModel : INotifyPropertyChanged
     {
+        private Alcohol alcohol;
+        private RelayCommand add;
+        private RelayCommand delete;
+        private RelayCommand openFolder;
         public event PropertyChangedEventHandler PropertyChanged;
         private  ObservableCollection<Alcohol> alcoholV;
         public ObservableCollection<Alcohol> AlcoholV
@@ -28,8 +32,6 @@ namespace ProjectWPF
                 OnPropertyChanged();
             }
         }
-
-        private Alcohol alcohol;
         public Alcohol SelectedAlcohol
         {
             get
@@ -48,24 +50,38 @@ namespace ProjectWPF
         }
         public ViewModel()
         {
-            AlcoholV = Alcohol.GetAll();
+            AlcoholV = SqliteDataAccess.LoadAlcohol();
         }
 
         #region commamds
 
 
-        private RelayCommand add;
-        public ICommand Add
+        public RelayCommand Add
         {
             get { return add ?? (add = new RelayCommand(x => AddAlcohol())); }
         }
-        private RelayCommand delete;
-        public ICommand Delete
+        public RelayCommand Delete
         {
             get
             {
-                return delete ?? (delete = new RelayCommand(x => DeleteAlcohol(), y => SelectedAlcohol != null));
+                return delete ?? (delete = new RelayCommand
+                                (
+                                x => DeleteAlcohol(),
+                                y => SelectedAlcohol != null)
+                                );
             }
+            //get
+            //{
+            //    return delete ??
+            //      (delete = new RelayCommand((SelectedAlcohol) =>
+            //      {
+            //          if (SelectedAlcohol == null) return;
+            //          // получаем выделенный объект
+            //          Alcohol alcoholV = SelectedAlcohol as Alcohol;
+            //         db.AlcoholV.Remove(alcoholV);
+            //          db.SaveChanges();
+            //      }));
+            //}
         }
         private void DeleteAlcohol()
         {
@@ -91,9 +107,9 @@ namespace ProjectWPF
                 Year = "Year"
             };
             SqliteDataAccess.SaveItem(a);
+            SqliteDataAccess.LoadAlcohol();
         }
-        private RelayCommand openFolder;
-        public ICommand OpenFolder
+        public RelayCommand OpenFolder
         {
             get
             {
@@ -114,7 +130,7 @@ namespace ProjectWPF
                 SelectedAlcohol.Image = f.FileName;
         }
         private RelayCommand sort;
-        public ICommand Sort
+        public RelayCommand Sort
         {
             get { return sort ?? (sort = new RelayCommand(SortList)); }
         }

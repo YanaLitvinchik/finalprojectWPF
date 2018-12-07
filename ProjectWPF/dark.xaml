@@ -3,5 +3,9 @@
                     xmlns:local="clr-namespace:ProjectWPF">
     <Style x:Key="WindowStyle" TargetType="Window">
         <Setter Property="Background" Value="Chocolate" />
-    </Style>    
+    </Style>
+    <Style x:Key="TxB" TargetType="TextBlock">
+        <Setter Property="TextAlignment" Value="Center"/>
+        <Setter Property="FontSize" Value="30"/>
+    </Style>
 </ResourceDictionary>
