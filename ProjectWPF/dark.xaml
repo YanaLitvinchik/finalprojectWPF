@@ -7,5 +7,6 @@
     <Style x:Key="TxB" TargetType="TextBlock">
         <Setter Property="TextAlignment" Value="Center"/>
         <Setter Property="FontSize" Value="30"/>
+        <Setter Property="Foreground" Value="Black"/>
     </Style>
 </ResourceDictionary>

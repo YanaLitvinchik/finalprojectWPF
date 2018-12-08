@@ -16,6 +16,7 @@ namespace ProjectWPF
     {
         private Alcohol alcohol;
         private RelayCommand add;
+        private RelayCommand savechanges;
         private RelayCommand delete;
         private RelayCommand openFolder;
         public event PropertyChangedEventHandler PropertyChanged;
@@ -76,7 +77,6 @@ namespace ProjectWPF
             //      (delete = new RelayCommand((SelectedAlcohol) =>
             //      {
             //          if (SelectedAlcohol == null) return;
-            //          // получаем выделенный объект
             //          Alcohol alcoholV = SelectedAlcohol as Alcohol;
             //         db.AlcoholV.Remove(alcoholV);
             //          db.SaveChanges();
@@ -108,6 +108,31 @@ namespace ProjectWPF
             };
             SqliteDataAccess.SaveItem(a);
             SqliteDataAccess.LoadAlcohol();
+        }
+        public RelayCommand SaveChanges
+        {
+
+
+            get
+            {
+                return savechanges ??
+                    (savechanges = new RelayCommand((selectedAlcohol) =>
+                    {
+                        if (selectedAlcohol == null) return;
+                        Alcohol alcohol = selectedAlcohol as Alcohol;
+
+                        Alcohol al = new Alcohol()
+                        {
+                            Id = alcohol.Id,
+                            Name = alcohol.Name,
+                            Image = alcohol.Image,
+                            Manufacturer = alcohol.Manufacturer,
+                            Year = alcohol.Year,
+                            Type = alcohol.Type
+                        };
+                        
+                    }));
+            }
         }
         public RelayCommand OpenFolder
         {
