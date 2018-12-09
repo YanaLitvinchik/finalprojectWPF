@@ -7,7 +7,7 @@ using System.Windows.Input;
 
 namespace ProjectWPF
 {
-    class RelayCommand : ICommand
+    public class RelayCommand : ICommand
     {
         readonly Action<object> action;
         readonly Predicate<object> predicate;

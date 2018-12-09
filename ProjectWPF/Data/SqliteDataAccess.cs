@@ -23,6 +23,16 @@ namespace ProjectWPF
             
         }
 
+        public static void UpdateItem(Alcohol alc)
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                string cmd = $@"update AlcoholItemFinal 
+                                set Name = {alc.Name}, Manufacturer={alc.Manufacturer},Year={alc.Year},Type={alc.Type}
+                                where Id={alc.Id};";
+                cnn.Execute(cmd);
+            }
+        }
         public static void SaveItem(Alcohol alcohol)
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
@@ -30,15 +40,13 @@ namespace ProjectWPF
                 cnn.Execute("insert into AlcoholItemFinal (Image,Name,Manufacturer,Year,Type) values (@Image,@Name,@Manufacturer,@Year,@Type)", alcohol);
             }
         }
-        //public static void DeleteItem(Alcohol alcohol)
-        //{
-        //    using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
-        //    {
-        //       // cnn.Execute("insert into AlcoholItemFinal (Image,Name,Manufacturer,Year,Type) values (@Image,@Name,@Manufacturer,@Year,@Type)", alcohol);
-        //       // cnn.Execute("delete from AlcoholItemFinal (Image,Name,Manufacturer,Year,Type) values (@Image,@Name,@Manufacturer,@Year,@Type)");
-        //        cnn.ExecuteAsync("delete from AlcoholItemFinal");
-        //    }
-        //}
+        public static void DeleteItem(Alcohol alcohol)
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                cnn.Execute($"delete from AlcoholItemFinal where Id = {alcohol.Id};");
+            }
+        }
         private static string LoadConnectionString(string id = "Default")
         {
             return ConfigurationManager.ConnectionStrings[id].ConnectionString;

@@ -12,7 +12,7 @@ using System.Windows.Input;
 
 namespace ProjectWPF
 {
-    class ViewModel : INotifyPropertyChanged
+    public class ViewModel : INotifyPropertyChanged
     {
         private Alcohol alcohol;
         private RelayCommand add;
@@ -71,33 +71,15 @@ namespace ProjectWPF
                                 y => SelectedAlcohol != null)
                                 );
             }
-            //get
-            //{
-            //    return delete ??
-            //      (delete = new RelayCommand((SelectedAlcohol) =>
-            //      {
-            //          if (SelectedAlcohol == null) return;
-            //          Alcohol alcoholV = SelectedAlcohol as Alcohol;
-            //         db.AlcoholV.Remove(alcoholV);
-            //          db.SaveChanges();
-            //      }));
-            //}
         }
         private void DeleteAlcohol()
         {
+            SqliteDataAccess.DeleteItem(SelectedAlcohol);
             AlcoholV.Remove(SelectedAlcohol);
+          
         }
         private void AddAlcohol()
         {
-            //SqliteDataAccess.SaveItem
-            //AlcoholV.Add(new Alcohol()
-            //{
-            //    Image = "../Image/gibsons.jpg",
-            //    Name = "Name",
-            //    Type = "Type",
-            //    Manufacturer = "Manufacturer",
-            //    Year = "Year"
-            //});
             var a = new Alcohol()
             {
                 Image = "../Image/gibsons.jpg",
@@ -107,30 +89,16 @@ namespace ProjectWPF
                 Year = "Year"
             };
             SqliteDataAccess.SaveItem(a);
-            SqliteDataAccess.LoadAlcohol();
+            AlcoholV = SqliteDataAccess.LoadAlcohol();
         }
-        public RelayCommand SaveChanges
+        public ICommand SaveChanges
         {
-
-
             get
             {
                 return savechanges ??
-                    (savechanges = new RelayCommand((selectedAlcohol) =>
+                    (savechanges = new RelayCommand((x) =>
                     {
-                        if (selectedAlcohol == null) return;
-                        Alcohol alcohol = selectedAlcohol as Alcohol;
-
-                        Alcohol al = new Alcohol()
-                        {
-                            Id = alcohol.Id,
-                            Name = alcohol.Name,
-                            Image = alcohol.Image,
-                            Manufacturer = alcohol.Manufacturer,
-                            Year = alcohol.Year,
-                            Type = alcohol.Type
-                        };
-                        
+                        SqliteDataAccess.UpdateItem(SelectedAlcohol);
                     }));
             }
         }

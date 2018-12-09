@@ -33,6 +33,7 @@ namespace ProjectWPF
 
         private void ThemeChange(object sender, SelectionChangedEventArgs e)
         {
+            
             string style = styleBox.SelectedItem as string;
             var uri = new Uri(style + ".xaml", UriKind.Relative);
             ResourceDictionary resourceDict = Application.LoadComponent(uri) as ResourceDictionary;
